@@ -1,0 +1,22 @@
+{
+  "name": "Bizlab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Olakunle Dosunmu",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "hapi": "^16.1.1",
+    "hapi-cors-headers": "^1.0.3",
+    "mongodb": "^2.2.26",
+    "pm2": "^2.9.1"
+  },
+  "engines": {
+    "node": "6.11.5"
+  }
+}

@@ -10,7 +10,6 @@ function doAuth(db, email, password, callback) {
         if (doc !== null) {
             bcrypt.compare(password, doc.password, function (e, result) {
                 if (result) {
-                    console.log("Crypt result..." + result);
                     doc.password = undefined;
                     callback(true, doc);
                 } else {
@@ -83,7 +82,7 @@ var routes = function (server, mongodb) {
             var password = request.payload.password;
             var email = request.payload.email;
 
-            doAuth(db, email, password, (status, response) => {
+            doAuth(mongodb, email, password, (status, response) => {
                 if (status) {
                     reply(response)
                 }

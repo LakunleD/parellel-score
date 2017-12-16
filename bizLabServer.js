@@ -1,7 +1,7 @@
-const Hapi = require("hapi");
-const corsHeaders = require('hapi-cors-headers');
-const server = new Hapi.Server();
-const MongoClient = require('mongodb').MongoClient;
+var Hapi = require("hapi");
+var corsHeaders = require('hapi-cors-headers');
+var server = new Hapi.Server();
+var MongoClient = require('mongodb').MongoClient;
 
 var users = require('./routes/users');
 var news = require('./routes/news');

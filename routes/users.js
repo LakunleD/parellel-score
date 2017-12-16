@@ -1,5 +1,5 @@
-const ObjectID = require('mongodb').ObjectID;
-const bcrypt = require('bcrypt');
+var ObjectID = require('mongodb').ObjectID;
+var bcrypt = require('bcrypt');
 
 
 function doAuth(db, email, password, callback) {

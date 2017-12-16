@@ -1,6 +1,6 @@
-let routes = (server, db) => {
+var routes = (server, db) => {
 
-    let newsCollection = db.collection('news');
+    var newsCollection = db.collection('news');
 
     server.route({
         method: "GET",
@@ -19,11 +19,11 @@ let routes = (server, db) => {
         method: "POST",
         path: "/news",
         handler: function (request, reply) {
-            let title = request.payload.title;
-            let body = request.payload.body;
-            let creator = request.payload.creator;
+            var title = request.payload.title;
+            var body = request.payload.body;
+            var creator = request.payload.creator;
 
-            let data = {title: title, body: body, creator: creator};
+            var data = {title: title, body: body, creator: creator};
 
             newsCollection.insert(data, (err, news) => {
                 if (err) {
@@ -38,7 +38,7 @@ let routes = (server, db) => {
         method: "GET",
         path: "/news/{id}",
         handler: function (request, reply) {
-            let id = request.params.id;
+            var id = request.params.id;
 
             newsCollection.findOne({_id: new ObjectID(id)}, (err, newsItem) => {
                 if (err) {
@@ -55,10 +55,10 @@ let routes = (server, db) => {
         method: 'PUT',
         path: "/news/{id}",
         handler: function (request, reply) {
-            let id = request.params.id;
+            var id = request.params.id;
 
-            let title = request.payload.title;
-            let body = request.payload.body;
+            var title = request.payload.title;
+            var body = request.payload.body;
 
             newsCollection.findOne({_id: new ObjectID(id)}, function (err, news) {
                 if (err) {

@@ -1,4 +1,4 @@
-let routes = function(server, db) {
+var routes = function(server, db) {
 
 }
 

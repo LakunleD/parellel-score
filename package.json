@@ -13,8 +13,7 @@
     "bcrypt": "^1.0.3",
     "hapi": "^16.1.1",
     "hapi-cors-headers": "^1.0.3",
-    "mongodb": "^2.2.26",
-    "pm2": "^2.9.1"
+    "mongodb": "^2.2.26"
   },
   "engines": {
     "node": "6.11.5"

@@ -9,7 +9,7 @@ let documents = require('./routes/documents');
 
 
 server.connection({
-    "port": 3060,
+    "port": process.env.PORT,
     "routes": {
         "cors": {
             "headers": ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language", "Origin"],

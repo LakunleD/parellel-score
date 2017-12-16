@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/pm2 -m 5 bizLabServer.js
+web: node bizLabServer.js

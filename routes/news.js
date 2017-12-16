@@ -19,9 +19,11 @@ let routes = (server, db) => {
         method: "POST",
         path: "/news",
         handler: function (request, reply) {
-            let {title, body, creator} = request.payload;
+            let title = request.payload.title;
+            let body = request.payload.body;
+            let creator = request.payload.creator;
 
-            let data = {title, body, creator};
+            let data = {title: title, body: body, creator: creator};
 
             newsCollection.insert(data, (err, news) => {
                 if (err) {
@@ -55,7 +57,8 @@ let routes = (server, db) => {
         handler: function (request, reply) {
             let id = request.params.id;
 
-            let {title, body} = request.payload;
+            let title = request.payload.title;
+            let body = request.payload.body;
 
             newsCollection.findOne({_id: new ObjectID(id)}, function (err, news) {
                 if (err) {
@@ -70,7 +73,7 @@ let routes = (server, db) => {
                 if (body) {
                     news.body = body;
                 }
-                newsCollection.updateOne({_id: new ObjectID(id)}, {$set:news}, (err, result)=>{
+                newsCollection.updateOne({_id: new ObjectID(id)}, {$set: news}, (err, result) => {
                     if (err) {
                         reply({message: 'error'}).code(400);
                     }

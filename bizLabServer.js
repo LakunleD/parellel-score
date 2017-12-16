@@ -3,9 +3,9 @@ const corsHeaders = require('hapi-cors-headers');
 const server = new Hapi.Server();
 const MongoClient = require('mongodb').MongoClient;
 
-let users = require('./routes/users');
-let news = require('./routes/news');
-let documents = require('./routes/documents');
+var users = require('./routes/users');
+var news = require('./routes/news');
+var documents = require('./routes/documents');
 
 
 server.connection({
@@ -20,7 +20,7 @@ server.connection({
 
 server.ext('onPreResponse', corsHeaders);
 
-let mongoDbConnectionString = process.env.MONGODB_URI;
+var mongoDbConnectionString = process.env.MONGODB_URI;
 
     MongoClient.connect(mongoDbConnectionString, function (err, db) {
     if (err) {

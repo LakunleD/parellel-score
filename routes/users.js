@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 
 function doAuth(db, email, password, callback) {
     console.log("Authenticating...")
-    let userCollection = db.collection('users');
+    var userCollection = db.collection('users');
 
-    userCollection.findOne({ "email": email }, (e, doc) => {
+    userCollection.findOne({"email": email}, function (e, doc) {
         if (doc !== null) {
             bcrypt.compare(password, doc.password, function (e, result) {
                 if (result) {
@@ -24,34 +24,40 @@ function doAuth(db, email, password, callback) {
 }
 
 
-let routes = (server, mongodb) => {
-    let userCollection = mongodb.collection('users');
+var routes = function (server, mongodb) {
+    var userCollection = mongodb.collection('users');
 
     server.route({
         path: "/users",
         method: "POST",
         handler: function (request, reply) {
-            let {firstName, lastName, password, email, type} = request.payload;
+            var payload = request.payload;
 
-            let salt = bcrypt.genSaltSync(11);
-            let encPassword = bcrypt.hashSync(password, salt);
+            var firstName = payload.firstName;
+            var lastName = payload.lastName;
+            var password = payload.password;
+            var email = payload.email;
+            var type = payload.type;
 
-            let data = {firstName, lastName, encPassword, email, type};
+            var salt = bcrypt.genSaltSync(11);
+            var encPassword = bcrypt.hashSync(password, salt);
+
+            var data = {firstName: firstName, lastName: lastName, password: encPassword, email: email, type: type};
 
             userCollection.findOne({email: email}, function (err, user) {
                 if (err) {
-                    reply({message:'error'}).code(400);
+                    reply({message: 'error'}).code(400);
                 }
                 if (user === null) {
                     userCollection.insertOne(data, function (err, result) {
                         if (err) {
-                            reply({message:'error'}).code(400);
+                            reply({message: 'error'}).code(400);
                         }
                         reply({message: 'created a user', user: data});
                     });
                 }
                 else {
-                    reply({message:'user already exist'});
+                    reply({message: 'user already exist'});
                 }
             });
         }
@@ -63,7 +69,7 @@ let routes = (server, mongodb) => {
         handler: function (request, reply) {
             userCollection.find({}).toArray((err, users) => {
                 if (err) {
-                    reply({message:'error'}).code(400);
+                    reply({message: 'error'}).code(400);
                 }
                 reply(users);
             });
@@ -71,10 +77,11 @@ let routes = (server, mongodb) => {
     });
 
     server.route({
-        path:'/users/auth',
-        method:'POST',
+        path: '/users/auth',
+        method: 'POST',
         handler: function (request, reply) {
-            let {password, email} = request.payload;
+            var password = request.payload.password;
+            var email = request.payload.email;
 
             doAuth(db, email, password, (status, response) => {
                 if (status) {
@@ -82,7 +89,7 @@ let routes = (server, mongodb) => {
                 }
                 else {
                     reply({
-                        message:response
+                        message: response
                     }).code(403);
                 }
             });
